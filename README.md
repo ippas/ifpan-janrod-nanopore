@@ -26,6 +26,9 @@ Each directory contains `fastq_pass` directory with fastq files (`...\_{acquisit
 - PAK53731\_pass\_barcode45\_51d07536\_1000.fastq.gz
 - PAK53731\_pass\_barcode45\_51d07536\_1001.fastq.gz
 
+### Organize files for an analysis
+`preprocessing/merge_fastq_copy_summary_to_data.sh`
+
 
 ## Analysis
 Details of analysis
