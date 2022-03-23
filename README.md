@@ -1,7 +1,16 @@
-# Project title (institute-name-subject)
+# Nanopore Sequencing (ifpan-janrod-nanopore)
 
 #### Project logline (technique, organism, tissue type)
-Short description of treatment groups/subjects
+Mice C57BL/6N (breeding); coronal sections
+
+Samples:
+- TH\_7570 – thalamus, female
+- TH\_7566 – thalamus, male
+- STR\_7570 – striatum, female
+- STR\_7566 – striatum, male
+
+Thalamus: 4 sections 200μm, isolated with a needle  
+Striatum: 3 sections 200μm, a whole section
 
 
 ## Methods
@@ -9,7 +18,14 @@ This sections should be a description of preprocessin and analysis ready to be i
 
 
 ## Preprocessing
-Details of file preprocessing
+Each sample has two directories (`{date?}\_{time?}\_{position}\_{flow\_cell\_id}\_{protocol\_run\_id}`):
+- 20220224\_146\_5C\_PAK53731\_3f1a4734
+- 20220303\_0915\_2B\_PAK51151\_6830aff81
+
+Each directory contains `fastq_pass` directory with fastq files (`...\_{acquisition\_run\_id}\_{nr}.fastq.gz`), e.g.:
+- PAK53731\_pass\_barcode45\_51d07536\_1000.fastq.gz
+- PAK53731\_pass\_barcode45\_51d07536\_1001.fastq.gz
+
 
 ## Analysis
 Details of analysis
