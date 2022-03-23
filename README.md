@@ -30,6 +30,12 @@ Each directory contains `fastq_pass` directory with fastq files (`...\_{acquisit
 All fastq files in each group striatum and thalamus were merged.
 `preprocessing/merge_fastq_copy_summary_to_data.sh`
 
+### QC
+For QC MinIOINQC v1.4.2 was used (https://github.com/roblanf/minion\_qc/releases/tag/1.4.2).
+Docker container named `minion_qc` was based on r-base:4.1.3 and all needed packages were installed.
+```bash
+docker container exec --user "$(id -u):$(id -g)" minion_qc Rscript /home/ippas/ifpan-janrod-nanopore/preprocessing/MinIONQC-v1.4.2.R -p 2 -i /home/ippas/ifpan-janrod-nanopore/data/ -o /home/ippas/ifpan-janrod-nanopore/results/minion_qc/
+```
 
 ## Analysis
 Details of analysis
