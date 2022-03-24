@@ -1,43 +1,21 @@
 #!/usr/bin/env bash
 
 
-for FASTQ_PASS_DIR in $(find -type d -name fastq_pass)
-do
-    echo "Processing $FASTQ_PASS_DIR..."
-    FILE_TEMPLATE=$(find "$FASTQ_PASS_DIR" -name "*_0\.fastq\.gz")
+RAW_DATA_DIR=raw/X201SC22012366-Z01-F001/raw_data/
 
-    SAMPLE_PATH=$(dirname "$FASTQ_PASS_DIR")
-    SAMPLE_DATA_PATH=$(
-        echo "$SAMPLE_PATH" \
-            | sed 's/\/raw\/X201SC22012366-Z01-F001\/raw_data\//\/data\//'
-    )
-    MERGED_FASTQ_FILE=$(
-        basename -- $(echo "$FILE_TEMPLATE" | sed 's/_0\.fastq\.gz/.fastq.gz/')
-    )
+echo "Merging fastq files..."
+cat $RAW_DATA_DIR/STR*/*/fastq_pass/*.fastq.gz > data/str/str.fastq.gz
+cat $RAW_DATA_DIR/TH*/*/fastq_pass/*.fastq.gz > data/th/th.fastq.gz
 
-    mkdir -p "$SAMPLE_DATA_PATH"
 
-    echo "Merging $MERGED_FASTQ_FILE..."
-    cat "$FASTQ_PASS_DIR"/* > "$SAMPLE_DATA_PATH/$MERGED_FASTQ_FILE"
-
-    echo "Copying summary file..."
-    cp "$SAMPLE_PATH"/sequencing_summary_*.txt \
-        "$SAMPLE_DATA_PATH/sequencing_summary.txt"
-    echo
-done
+echo "Merging sequencing summary files..."
+SEQ_SUM_FILE=$RAW_DATA_DIR/STR_7566/20220224_1416_5C_PAK53731_3f1a4734/sequencing_summary_PAK53731_51d07536_barcode45.txt
 
 STR_DIR=data/str/
 TH_DIR=data/th/
-mkdir $STR_DIR $TH_DIR
 
-echo "Merging fastq files..."
-cat data/STR*/*/*.fastq.gz > $STR_DIR/str.fastq.gz
-cat data/TH*/*/*.fastq.gz > $TH_DIR/th.fastq.gz
+head -n 1 $SEQ_SUM_FILE > $STR_DIR/sequencing_summary.txt
+tail -n +2 -q $RAW_DATA_DIR/STR*/*/sequencing_*.txt >> $STR_DIR/sequencing_summary.txt
 
-echo "Merging sequencing summary files..."
-cat data/STR*/*/sequencing_summary.txt > $STR_DIR/sequencing_summary.txt
-cat data/TH*/*/sequencing_summary.txt > $TH_DIR/sequencing_summary.txt
-
-echo "Removing tmp files..."
-rm -r data/STR*
-rm -r data/TH*
+head -n 1 $SEQ_SUM_FILE > $TH_DIR/sequencing_summary.txt
+tail -n +2 -q $RAW_DATA_DIR/TH*/*/sequencing_*.txt >> $TH_DIR/sequencing_summary.txt
