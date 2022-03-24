@@ -37,6 +37,11 @@ Docker container named `minion_qc` was based on r-base:4.1.3 and all needed pack
 docker container exec --user "$(id -u):$(id -g)" minion_qc Rscript /home/ippas/ifpan-janrod-nanopore/preprocessing/MinIONQC-v1.4.2.R -p 8 -i /home/ippas/ifpan-janrod-nanopore/data/ -o /home/ippas/ifpan-janrod-nanopore/results/minion_qc/
 ```
 
+MultiQC
+```bash
+docker run --name multiqc --rm -v $PWD:$PWD --user "$(id -u):$(id -g)" ewels/multiqc /home/ippas/ifpan-janrod-nanopore/results/minion_qc/ -o /home/ippas/ifpan-janrod-nanopore/results/minion_qc/
+```
+
 ## Analysis
 Details of analysis
 
