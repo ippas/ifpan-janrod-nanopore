@@ -42,6 +42,32 @@ MultiQC
 docker run --name multiqc --rm -v $PWD:$PWD --user "$(id -u):$(id -g)" ewels/multiqc /home/ippas/ifpan-janrod-nanopore/results/minion_qc/ -o /home/ippas/ifpan-janrod-nanopore/results/minion_qc/
 ```
 
+### Alignment
+Two programs were used for read alignment. Output _sam_ files were sorted and indexed by samtools afterwards.
+
+#### Minimap2 (v. 2.24)
+(https://github.com/lh3/minimap2)
+
+`-N 10` option is recommended by NanoCount.
+
+```bash
+minimap2 -ax splice -uf -k14 -N 10 -t 22 raw/refdata-gex-mm10-2020-A/fasta/genome.fa data/str/str.fastq.gz > data/str/str.sam
+minimap2 -ax splice -uf -k14 -N 10 -t 22 raw/refdata-gex-mm10-2020-A/fasta/genome.fa data/th/th.fastq.gz > data/th/th.sam
+
+samtools sort --threads 23 data/str/str.sam > data/str/str.bam
+samtools sort --threads 23 data/th/th.sam > data/th/th.bam
+samtools index data/str/str.bam
+samtools index data/th/th.bam
+```
+
+#### GraphMap2 (v. 0.6.4)
+(https://github.com/lbcb-sci/graphmap2)
+
+Graphmap uses a lot memory and it wasn't possible to align a whole sample (STR or TH).
+```bash
+graphmap2-v0.6.4 align -x rnaseq -t 22 -r raw/refdata-gex-mm10-2020-A/fasta/genome.fa -d data/str/str-66-02.fastq.gz -o data/str/str-66-02.sam
+```
+
 ## Analysis
 Details of analysis
 
