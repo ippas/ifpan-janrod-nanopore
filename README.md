@@ -79,15 +79,19 @@ minimap2 -ax map-ont -p 0 -N 10 -t 22 raw/Mus_musculus.GRCm38.cdna.all.fa.gz dat
 ```
 
 ## Analysis
-Details of analysis
 
-*notes: all files included in the repo need to be referenced, either in README or other .md files. The analysis has to be fully reproducible, in principle the repo should contain code + description of how to run it while data and results kept outside*
+### Expression levels
 
-## About this template
-Directories:
-- _root_ - README.md, *.Rproj, general configuration files, etc.
-- raw - raw data
-- preprocessing - scripts
-- data - useful data, created by scripts/tools/preprocessing
-- analysis - analysis source code
-- results - output ready to present
+#### NanoCount (v1.0.0.post6)
+
+```bash
+NanoCount -i data/str/str.bam -o data/str/str-transcript_counts.tsv
+NanoCount -i data/th/th.bam -o data/th/th-transcript_counts.tsv
+```
+A very low number of **valid alignments** (around 200, where 16mln and 15mln were discarded due to a negative strand and invalid 3 prime end respectively).
+
+```bash
+NanoCount -i data/str/str-cdna.bam -o data/str/str-cdna-transcript_counts.tsv
+NanoCount -i data/th/th-cdna.bam -o data/th/th-cdna-transcript_counts.tsv
+```
+Number of valid alignments is ~35mln (~68mln and ~32mln discarded).
