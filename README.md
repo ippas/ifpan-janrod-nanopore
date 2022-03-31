@@ -45,7 +45,9 @@ docker run --name multiqc --rm -v $PWD:$PWD --user "$(id -u):$(id -g)" ewels/mul
 ### Alignment
 Two programs were used for read alignment. Output _sam_ files were sorted and indexed by samtools afterwards.
 
-#### Minimap2 (v. 2.24)
+#### Alignment to a reference genome mm10
+
+##### Minimap2 (v. 2.24)
 (https://github.com/lh3/minimap2)
 
 `-N 10` option is recommended by NanoCount.
@@ -60,12 +62,20 @@ samtools index data/str/str.bam
 samtools index data/th/th.bam
 ```
 
-#### GraphMap2 (v. 0.6.4)
+##### GraphMap2 (v. 0.6.4)
 (https://github.com/lbcb-sci/graphmap2)
 
 Graphmap uses a lot memory and it wasn't possible to align a whole sample (STR or TH).
 ```bash
 graphmap2-v0.6.4 align -x rnaseq -t 22 -r raw/refdata-gex-mm10-2020-A/fasta/genome.fa -d data/str/str-66-02.fastq.gz -o data/str/str-66-02.sam
+```
+
+#### Alignment to a transcriptome
+Transcriptome downloaded from `http://ftp.ensembl.org/pub/release-102/fasta/mus_musculus/cdna/Mus_musculus.GRCm38.cdna.all.fa.gz`
+
+```bash
+minimap2 -ax map-ont -p 0 -N 10 -t 22 raw/Mus_musculus.GRCm38.cdna.all.fa.gz data/str/str.fastq.gz > data/str/str-cdna.sam
+minimap2 -ax map-ont -p 0 -N 10 -t 22 raw/Mus_musculus.GRCm38.cdna.all.fa.gz data/th/th.fastq.gz > data/th/th-cdna.sam
 ```
 
 ## Analysis
