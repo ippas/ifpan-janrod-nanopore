@@ -95,3 +95,8 @@ NanoCount -i data/str/str-cdna.bam -o data/str/str-cdna-transcript_counts.tsv
 NanoCount -i data/th/th-cdna.bam -o data/th/th-cdna-transcript_counts.tsv
 ```
 Number of valid alignments is ~35mln (~68mln and ~32mln discarded).
+
+#### Cufflinks (v2.2.1)
+Cufflinks doesn't work:
+
+`BAM record error: found spliced alignment without XS attribute.` _AS is the alignment score, and XS is the "suboptimal alignment score", essentially a secondary alignment_.
