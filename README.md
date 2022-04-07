@@ -80,6 +80,12 @@ minimap2 -ax map-ont -p 0 -N 10 -t 22 raw/Mus_musculus.GRCm38.cdna.all.fa.gz dat
 
 ## Analysis
 
+An analysis shows that there's highly abundant a 'novel' transcript with a very long UTR at the end (10kb) - 'a cat with a tail'. It has 4 exons and spans chr10:6788570-6850572 (+) *plus* a long UTR. This variant is present in RefSeq database (without long UTR) but not in Ensembl database.
+
+![long UTR](analysis/long-utr.png)
+
+There's some discrapency between aligned reads and reference transcripts, so expression levels assigned to transcripts are not always correct - especially for Oprm1.
+
 ### Expression levels
 
 #### NanoCount (v1.0.0.post6)
