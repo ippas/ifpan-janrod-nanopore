@@ -88,6 +88,10 @@ There's some discrapency between aligned reads and reference transcripts, so exp
 
 ### Expression levels
 
+Nanopore reads where aligned to GRCm38\_102/mm10 transcriptome (cDNA sequences from Ensamble database, version 102) with minimap2 (v. 2.24) sequence alignment program. Transcripts abundance of aligned sequences were estimated by NanoCount (v1.0.0.post6) and reported as TPM. Threshold for relevant abundance was set at 2TPM.
+
+The end positions of abundant transcripts (considering the transcript strand) were utilized as markers of peaks.
+
 #### NanoCount (v1.0.0.post6)
 
 ```bash
